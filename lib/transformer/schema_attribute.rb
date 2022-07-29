@@ -24,6 +24,11 @@ module Transformer
       validate_cast_type!
     end
 
+    # The `#==` allows using the `Array#|` concatination assignment as under the hood,
+    # Ruby will call `#==` on each of the `SchemaAttribute` before adding it to the array.
+    #
+    # @param other [SchemaAttribute] The attribute for comparison
+    # @return [Boolean]
     def ==(other)
       name == other.name
     end

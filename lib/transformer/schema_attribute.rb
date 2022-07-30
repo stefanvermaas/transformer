@@ -15,8 +15,6 @@ module Transformer
 
     attr_reader :cast_type, :name
 
-    SUPPORTED_CAST_TYPES = %i[string integer float bigdecimal big_decimal hash array].freeze
-
     def initialize(name, cast_type: :string)
       @name = name.to_sym
       @cast_type = cast_type.to_sym
@@ -35,6 +33,8 @@ module Transformer
     alias eql? ==
 
     private
+
+    SUPPORTED_CAST_TYPES = %i[string integer float bigdecimal big_decimal hash array].freeze
 
     def validate_cast_type!
       raise UnsupportedCastType, @cast_type unless SUPPORTED_CAST_TYPES.include?(@cast_type)

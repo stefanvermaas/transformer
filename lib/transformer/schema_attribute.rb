@@ -2,24 +2,11 @@
 
 module Transformer
   class SchemaAttribute
-    # The `Transformer` gem only supports several cast types. The `UnsupportedCastType`
-    # is raised whenever the user attempts to add an unsupported cast type.
-    class UnsupportedCastType < StandardError
-      def initialize(unsupported_cast_type)
-        super(
-          "The :#{unsupported_cast_type} is not a supported cast type. " \
-          "Make sure to use either one of the following cast types: #{SchemaAttribute::SUPPORTED_CAST_TYPES}"
-        )
-      end
-    end
-
     attr_reader :cast_type, :name
 
-    def initialize(name, cast_type: :string)
+    def initialize(name, cast_type: nil)
       @name = name.to_sym
-      @cast_type = cast_type.to_sym
-
-      validate_cast_type!
+      @cast_type = cast_type.to_sym if cast_type
     end
 
     # The `#==` allows using the `Array#|` concatination assignment as under the hood,
@@ -31,13 +18,5 @@ module Transformer
       name == other.name
     end
     alias eql? ==
-
-    private
-
-    SUPPORTED_CAST_TYPES = %i[string integer float bigdecimal big_decimal hash array].freeze
-
-    def validate_cast_type!
-      raise UnsupportedCastType, @cast_type unless SUPPORTED_CAST_TYPES.include?(@cast_type)
-    end
   end
 end

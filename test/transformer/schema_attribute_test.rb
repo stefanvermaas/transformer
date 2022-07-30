@@ -17,20 +17,14 @@ module Transformer
       assert_equal name_attribute, name_attribute
     end
 
-    def test_raises_on_unsupported_cast_type
-      assert_raises SchemaAttribute::UnsupportedCastType do
-        SchemaAttribute.new(:email, cast_type: :unknown_cast_type)
-      end
-    end
-
     def test_normalizes_cast_type_to_symbol
       schema_attribute = SchemaAttribute.new(:email, cast_type: "array")
       assert_equal :array, schema_attribute.cast_type
     end
 
-    def test_defaults_to_string_cast_type
+    def test_defaults_to_nil_cast_type
       schema_attribute = SchemaAttribute.new(:email)
-      assert_equal :string, schema_attribute.cast_type
+      assert_nil schema_attribute.cast_type
     end
   end
 end

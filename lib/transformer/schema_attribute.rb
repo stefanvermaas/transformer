@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "bigdecimal"
+
 module Transformer
   class SchemaAttribute
     attr_reader :cast_type, :name, :value_before_read

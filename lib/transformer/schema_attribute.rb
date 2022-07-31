@@ -29,11 +29,12 @@ module Transformer
     #   $ schema_attribute.value { DataSource.new }
     #   => "jane@example.com"
     #
-    # @return [Any]
+    # @return [Any|nil]
     def value
-      return @value if defined?(@value)
+      return unless block_given?
 
-      @value = extract_and_cast_value(yield) if block_given?
+      value_before_type_cast = extract_value_from_context(yield)
+      cast_value(value_before_type_cast)
     end
 
     # The `#==` allows using the `Array#|` concatination assignment as under the hood,
@@ -59,11 +60,6 @@ module Transformer
       else
         value
       end
-    end
-
-    def extract_and_cast_value(context)
-      value_before_type_cast = extract_value_from_context(context)
-      cast_value(value_before_type_cast)
     end
 
     def extract_value_from_context(context) # rubocop:disable Metrics/MethodLength

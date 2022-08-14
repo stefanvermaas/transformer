@@ -111,10 +111,18 @@ module Transformer
       @data = data
     end
 
+    # Transforms data into a hash.
+    #
+    # @params options [Hash] Options for the transformer model.
+    # @return [Hash]
     def to_h(**options)
       attribute_set.to_h(**options)
     end
 
+    # Transform data into a JSON hash.
+    #
+    # @param options [Hash] Options for the transformer model and JSON parser.
+    # @return [String]
     def to_json(**options)
       attribute_set.to_json(**options)
     end

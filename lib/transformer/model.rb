@@ -97,6 +97,9 @@ module Transformer
     class << self
       attr_reader :schema_definition
 
+      # The `.schema` defines the schema for the transformations.
+      #
+      # @return [Transformer::Model]
       def schema(&block)
         if block_given?
           @schema_definition ||= SchemaDefinition.new
@@ -104,6 +107,26 @@ module Transformer
         end
 
         self
+      end
+
+      # The `.to_h` is a shorthand for transforming an object to a hash based
+      # on the defined schema.
+      #
+      # @param data [Hash] The original data object.
+      # @params options [Hash] Options for the transformer model.
+      # @return [Hash]
+      def to_h(data, **options)
+        new(data).to_h(**options)
+      end
+
+      # The `.to_json` is a shorthand for transforming an object to a hash based
+      # on the defined schema.
+      #
+      # @param data [Hash] The original data object.
+      # @params options [Hash] Options for the transformer model and JSON parser.
+      # @return [String]
+      def to_json(data, **options)
+        new(data).to_json(**options)
       end
     end
 

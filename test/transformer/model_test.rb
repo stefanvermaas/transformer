@@ -34,9 +34,9 @@ module Transformer
       end
 
       original_data = { name: "Travel Bag" }
-      transformed_data = model.new(original_data).to_h
 
-      assert_equal "Travel Bag", transformed_data[:name]
+      assert_equal "Travel Bag", model.new(original_data).to_h[:name]
+      assert_equal "Travel Bag", model.to_h(original_data)[:name]
     end
 
     def test_schema_to_json
@@ -47,9 +47,9 @@ module Transformer
       end
 
       original_data = { name: "Travel Bag" }
-      transformed_data = model.new(original_data).to_json
 
-      assert_equal original_data.to_json, transformed_data
+      assert_equal original_data.to_json, model.new(original_data).to_json
+      assert_equal original_data.to_json, model.to_json(original_data)
     end
   end
 end

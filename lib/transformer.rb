@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
-require_relative "transformer/version"
+require "transformer/attribute_set"
+require "transformer/schema_attribute"
+require "transformer/schema_definition"
+require "transformer/model"
 
 module Transformer
-  class Error < StandardError; end
-  # Your code goes here...
 end
